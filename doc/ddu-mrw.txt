@@ -1,15 +1,15 @@
-*ddu-mr.txt*	mr.vim source for ddu.vim
+*ddu-mrw.txt*	mr.vim source for ddu.vim
 
-Author: kuuote <znmxodq1@gmail.com>
+Author: Dzzt
 License: zlib License
 
 ==============================================================================
-INTRODUCTION						*ddu-mr-introduction*
+INTRODUCTION						*ddu-mrw-introduction*
 
-This source provides |mr.vim| source for |ddu.vim|
+This provides |mr#mrw#list| from |mr.vim| as a source for |ddu.vim|
 
 ==============================================================================
-INSTALL							*ddu-mr-install*
+INSTALL							*ddu-mrw-install*
 
 Please install below plugins.
 
@@ -19,27 +19,24 @@ https://github.com/vim-denops/denops.vim
 https://github.com/lambdalisue/mr.vim
 
 ==============================================================================
-EXAMPLES						*ddu-mr-examples*
+EXAMPLES						*ddu-mrw-examples*
 >
 >
   " default
-  call ddu#start({'sources': [{'name': 'mr'}]})
+  call ddu#start({'sources': [{'name': 'mrw'}]})
 
   " kind specific
-  call ddu#start({'sources': [{'name': 'mr', 'params': {'kind': 'mrw'}}]})
+  call ddu#start({'sources': [{'name': 'mrw', 'params': {'kind': 'mrw'}}]})
 
   " only current directory
-  call ddu#start({'sources': [{'name': 'mr', 'params': {'current': v:true}}]})
+  call ddu#start({'sources': [{'name': 'mrw', 'params': {'current': v:true}}]})
 
 ==============================================================================
-PARAMS							*ddu-mr-params*
+PARAMS							*ddu-mrw-params*
 
-				    			*ddu-mr-param-kind*
+				    			*ddu-mrw-param-kind*
 kind		(string)
 		source kind of |mr.vim|
-
-		Default: "mru"
-		Available: One of "mru", "mrw", "mrr"
 
 current		(boolean)
 		The target is the current directory.
