@@ -1,58 +1,49 @@
-import { BaseSource, Item } from "https://deno.land/x/ddu_vim@v2.0.0/types.ts";
-import { Denops, fn } from "https://deno.land/x/ddu_vim@v2.0.0/deps.ts";
+import { BaseSource, Item } from "https://deno.land/x/ddu_vim@v2.4.0/types.ts";
+import { Denops, fn } from "https://deno.land/x/ddu_vim@v2.4.0/deps.ts";
 import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.3.2/file.ts";
-import {
-    ensureArray,
-    isString,
-} from "https://deno.land/x/unknownutil@v1.1.4/mod.ts";
-import { relative } from "https://deno.land/std@0.122.0/path/mod.ts#^";
+import { ensureArray, isString, } from "https://deno.land/x/unknownutil@v2.1.0/mod.ts";
 
-type Params = {
-    kind: string;
-    current: boolean;
-};
+type Params = { kind: string; };
 
 export class Source extends BaseSource<Params> {
+
     kind = "file";
 
     gather(args: {
+
         denops: Denops;
         sourceParams: Params;
+
     }): ReadableStream<Item<ActionData>[]> {
-        return new ReadableStream({
 
-            async start(controller) {
+            return new ReadableStream({
 
-            const dir = await fn.getcwd(args.denops) as string;
+                async start(controller) {
 
-            const result = args.sourceParams.current
-                ? await args.denops.call(
-                    "mr#filter",
-                    await args.denops.call(`mr#mrw#list`),
-                    `${dir}`,
-                  )
-                : await args.denops.call(`mr#mrw#list`);
+                    const dir = await fn.getcwd(args.denops) as string;
+                    const result = await args.denops.call(`mr#mrw#list`);
 
-            ensureArray(result, isString);
+                    ensureArray(result, isString);
 
-            controller.enqueue(result.map((p) => ({
-                word: args.sourceParams.current ? relative(dir, p) : p,
-                action: {
-                    path: p,
-              },
-            })));
+                    controller.enqueue(result.map((p) => ({
 
-            controller.close();
+                        word: p,
+                        action: { path: p, },
 
-            },
-        });
+                    })));
+                    
+                    controller.close();
+
+                },
+
+            });
+
       }
 
     params(): Params {
-        return {
-            kind: "mrw",
-            current: false,
-            };
+
+        return { kind: "mrw" };
+
     }
 
 }
