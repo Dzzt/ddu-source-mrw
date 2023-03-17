@@ -1,4 +1,4 @@
-This is a fork MRW limited version of  
+This is a forked MRW limited version from  
 https://github.com/kuuote/ddu-source-mr  
 
 I made this because I needed.
